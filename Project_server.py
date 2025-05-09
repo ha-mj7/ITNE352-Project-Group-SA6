@@ -21,15 +21,24 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
     with open('SA6.json' , 'w') as f:
         result = f.write(json_data)
 
-    def Thread(sock_a, ):
+    def Thread(sock_a, id):
         while True:
             Cname = sock_a.recv(1024).decode('ascii')
             print('Client\'s name: {}'.format(Cname))
             choice = sock_a.recv(1024).decode('ascii')
-            keys = ["id","gmt","airport_id","iata_code","city_iata_code","icao_code","country_iso2","geoname_id","latitude","longitude","airport_name","country_name","phone_number","timezone"]
+            keys = fdata['data']
             if choice.lower() in ['a','1']:
-                for a in fdata:
-                    if a == ''
+                for a in keys:
+                    if a['arrival']['actual'] is not None:
+                        print('-----------All arrived flights-----------')
+                        print('Flight IATA code: {}'.format(a['arrival']['iata']))
+                        print('Departure airport: {}'.format(a['departure']['airport']))
+                        print('Arrival time: {}'.format(a['arrival']['actual']))
+                        print('Arrival terminal number: {}'.format(a['arrival']['terminal']))
+                        print('Arrival gate: {}'.format(a['arrival']['gate']))
+                        print('-----------------------------------------')
+                        
+
             
 
 
@@ -42,7 +51,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
         print('New thread has been created for {}'.format(sockname[0]))
         my_threads.append(t)
         t.start()
-        if len(my_threads)> 4:
+        if len(my_threads)> 5:
             break
 
 
