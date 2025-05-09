@@ -30,13 +30,18 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
             if choice.lower() in ['a','1']:
                 for a in keys:
                     if a['arrival']['actual'] is not None:
-                        print('-----------All arrived flights-----------')
-                        print('Flight IATA code: {}'.format(a['arrival']['iata']))
-                        print('Departure airport: {}'.format(a['departure']['airport']))
-                        print('Arrival time: {}'.format(a['arrival']['actual']))
-                        print('Arrival terminal number: {}'.format(a['arrival']['terminal']))
-                        print('Arrival gate: {}'.format(a['arrival']['gate']))
-                        print('-----------------------------------------')
+                        response_a = (
+                            '-----------All arrived flights-----------\n'
+                            f'Flight IATA code: {a['flight']['iata']}\n'
+                            f'Departure airport: {a['departure']['airport']}\n'
+                            f'Arrival time: {a['arrival']['actual']}\n'
+                            f'Arrival terminal: {a['arrival']['terminal']}\n'
+                            f'Arrival gate: {a['arrival']['gate']}\n'
+                            '-----------------------------------------\n'
+                        )
+                    sock_a.send(response_a.encode('ascii'))
+                
+            
                         
 
             
