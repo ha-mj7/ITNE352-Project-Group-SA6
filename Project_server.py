@@ -5,7 +5,7 @@ import time
 import socket
 
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
-    ss.bind(("127.0.0.1",777))
+    ss.bind(("127.0.0.1",1025))
     ss.listen(3)
     
     arr_icao = input('Enter the airport code:')
@@ -28,18 +28,22 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
             choice = sock_a.recv(1024).decode('ascii')
             keys = fdata['data']
             if choice.lower() in ['a','1']:
+                response_a = 'No data found\n'
                 for a in keys:
                     if a['arrival']['actual'] is not None:
-                        response_a = (
-                            '-----------All arrived flights-----------\n'
-                            f'Flight IATA code: {a['flight']['iata']}\n'
-                            f'Departure airport: {a['departure']['airport']}\n'
-                            f'Arrival time: {a['arrival']['actual']}\n'
-                            f'Arrival terminal: {a['arrival']['terminal']}\n'
-                            f'Arrival gate: {a['arrival']['gate']}\n'
-                            '-----------------------------------------\n'
+                        if response_a == 'No data found\n':
+                            response_a = ''
+                        response_a += (
+                            "-----------------------------------------\n"
+                            f"Flight IATA code: {a['flight']['iata']}\n"
+                            f"Departure airport: {a['departure']['airport']}\n"
+                            f"Arrival time: {a['arrival']['actual']}\n"
+                            f"Arrival terminal: {a['arrival']['terminal']}\n"
+                            f"Arrival gate: {a['arrival']['gate']}\n"
+                            "-----------------------------------------\n"
                         )
-                    sock_a.send(response_a.encode('ascii'))
+                print('All arrived flights:')
+                sock_a.send(response_a.encode('ascii'))
                 
             
                         
