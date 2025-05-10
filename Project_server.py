@@ -27,6 +27,8 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
             print('Client\'s name: {}'.format(Cname))
             choice = sock_a.recv(1024).decode('ascii')
             keys = fdata['data']
+
+
             if choice.lower() in ['a','1']:
                 response_a = 'No data found\n'
                 for a in keys:
@@ -44,13 +46,34 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                         )
                 print('All arrived flights:')
                 sock_a.send(response_a.encode('ascii'))
+
+
+            elif choice.lower() in ['b','2']:
+                response_b = 'No delayed flights found\n'
+                for b in keys:
+                    if b['arrival']['delay'] is not None:
+                        if b['flight']['codeshared'] is not None:
+                            if response_b == 'No delayed flights found\n':
+                             response_b = ''
+                            response_b += (
+                                "-----------------------------------------\n"
+                                f"Dep-Iata: {b['departure']['iata']}\n"
+                                f"Dep-airport: {b['departure']['airport']}\n"
+                                f"Dep-scheduled: {b['departure']['scheduled']}\n"
+                                f"Fli-number: {b['flight']['number']}\n"
+                                f"Arr-scheduled: {b['arrival']['scheduled']}\n"
+                                f"Arr-estimated: {b['arrival']['estimated']}\n"
+                                f"Arr-terminal: {b['arrival']['terminal']}\n"
+                                f"Arr-gate: {b['arrival']['gate']}\n"
+                                "-----------------------------------------\n"
+                                )
+                print('All delayed flights:')
+                sock_a.send(response_b.encode('ascii'))
+
+
+    
                 
             
-                        
-
-            
-
-
          
     my_threads=[]
 
