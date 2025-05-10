@@ -54,7 +54,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     if b['arrival']['delay'] is not None:
                         if b['flight']['codeshared'] is not None:
                             if response_b == 'No delayed flights found\n':
-                             response_b = ''
+                                response_b = ''
                             response_b += (
                                 "-----------------------------------------\n"
                                 f"Dep-Iata: {b['departure']['iata']}\n"
