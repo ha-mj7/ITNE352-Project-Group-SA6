@@ -33,7 +33,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                 response_a = 'No data found\n'
                 for a in keys:
                     if a['arrival']['actual'] is not None:
-                        if response_a == 'No data found\n':
+                        if response_a == 'No arrived flights found\n':
                             response_a = ''
                         response_a += (
                             "-----------------------------------------\n"
