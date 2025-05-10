@@ -30,7 +30,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
 
 
             if choice.lower() in ['a','1']:
-                response_a = 'No data found\n'
+                response_a = 'No arrived flights found\n'
                 for a in keys:
                     if a['arrival']['actual'] is not None:
                         if response_a == 'No arrived flights found\n':
@@ -66,7 +66,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                 f"Arr-terminal: {b['arrival']['terminal']}\n"
                                 f"Arr-gate: {b['arrival']['gate']}\n"
                                 "-----------------------------------------\n"
-                                )
+                            )
                 print('All delayed flights:')
                 sock_a.send(response_b.encode('ascii'))
 
