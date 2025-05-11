@@ -77,20 +77,20 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     sock_a.sendall(ask.encode('ascii'))
                     fli_num = sock_a.recv(1024).decode('ascii')
                     response_d = 'Sorry, no data found for this Flight number :('
-                    for flight in fdata['data']:
-                        if flight['flight'].get('number') == fli_num:
+                    for d in fdata['data']:
+                        if d ['flight'].get('number') == fli_num:
                             response_d = (
                                 "---------------------------------------------------------\n"
-                                f"Fli_iata: {flight['flight'].get('iata', 'N/A')}\n"
-                                f"Dep_airport: {flight['departure'].get('airport', 'N/A')}\n"
-                                f"Dep_gate: {flight['departure'].get('gate', 'N/A')}\n"
-                                f"Dep_terminal: {flight['departure'].get('terminal', 'N/A')}\n"
-                                f"Arr_airport: {flight['arrival'].get('airport', 'N/A')}\n"
-                                f"Arr_gate: {flight['arrival'].get('gate', 'N/A')}\n"
-                                f"Arr_terminal: {flight['arrival'].get('terminal', 'N/A')}\n"
-                                f"Fli_status: {flight.get('flight_status', 'N/A')}\n"
-                                f"Dep_scheduled: {flight['departure'].get('scheduled', 'N/A')}\n"
-                                f"Arr_scheduled: {flight['arrival'].get('scheduled', 'N/A')}\n"
+                                f"Fli_iata: {d['flight'].get('iata', 'N/A')}\n"
+                                f"Dep_airport: {d['departure'].get('airport', 'N/A')}\n"
+                                f"Dep_gate: {d['departure'].get('gate', 'N/A')}\n"
+                                f"Dep_terminal: {d['departure'].get('terminal', 'N/A')}\n"
+                                f"Arr_airport: {d['arrival'].get('airport', 'N/A')}\n"
+                                f"Arr_gate: {d['arrival'].get('gate', 'N/A')}\n"
+                                f"Arr_terminal: {d['arrival'].get('terminal', 'N/A')}\n"
+                                f"Fli_status: {d.get('flight_status', 'N/A')}\n"
+                                f"Dep_scheduled: {d['departure'].get('scheduled', 'N/A')}\n"
+                                f"Arr_scheduled: {d['arrival'].get('scheduled', 'N/A')}\n"
                                 "----------------------------------------------------------\n"
                             )
                             break
