@@ -71,41 +71,9 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                 print('All delayed flights:')
                 sock_a.send(response_b.encode('ascii'))
 
-            #Details of a particular flight
-            elif choice.lower() in ['d','3']:
-                ask='pleas Enter the flight number >>>'
-                sock_a.sendall(ask.encode('ascii'))
-                fli_num =sock_a.recv(1024).decode('ascii')   
-                response_d='Sorry no data found for this Flight number :('
-                for flight in api_data.get('data', []):
-                        if flight['flight'].get('number')==fli_num :
-                            
-                            response_d += (
-                                "---------------------------------------------------------\n"
-                                f"Fli_iata: {flight['flight'].get('iata', 'N/A')}\n"
-                                f"Dep_airport: {flight['departure'].get('airport', 'N/A')}\n"
-                                f"Dep_gate: {flight['departure'].get('gate', 'N/A')}\n"
-                                f"Dep_terminal: {flight['departure'].get('terminal', 'N/A')}\n"
-                                f"Arr_airport: {flight['arrival'].get('airport', 'N/A')}\n"
-                                f"Arr_gate: {flight['arrival'].get('gate', 'N/A')}\n"
-                                f"Arr_terminal: {flight['arrival'].get('terminal', 'N/A')}\n"
-                                f"Fli_status: {flight.get('flight_status', 'N/A')}\n"
-                                f"Dep_scheduled: {flight['departure'].get('scheduled', 'N/A')}\n"
-                                f"Arr_scheduled: {flight['arrival'].get('scheduled', 'N/A')}\n"
-                                "----------------------------------------------------------\n"
-                            )
-                print('Details of a particular flight')  
-                sock_a.send(response_d.encode('ascii'))
-
-            elif choice.lower() in ['quit','4']:
-                print('Disconnecting Client:{}'.format(Cname))
-                sock_a.send('Closing connection'.encode('ascii'))
-                sock_a.close()
-                break
-
-
 
     
+                
             
          
     my_threads=[]
