@@ -4,7 +4,7 @@ import threading
 import socket
 
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
-    ss.bind(("127.0.0.1",1025))
+    ss.bind(("127.0.0.1", 1700))
     ss.listen(3)
     
     arr_icao = input('Enter the airport code:')
