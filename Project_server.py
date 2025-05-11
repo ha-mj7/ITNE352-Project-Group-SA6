@@ -106,16 +106,12 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     sock_a.send('Invalid choice'.encode('ascii'))
 
         except (ConnectionResetError, BrokenPipeError):
-            print(f"Client {Cname} disconnected unexpectedly.")
+            print("Client {} disconnected unexpectedly.".format(Cname))
         finally:
             sock_a.close()
 
 
-
-    
-                
-            
-         
+     
     my_threads=[]
 
     while True:
@@ -127,5 +123,3 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
         if len(my_threads)> 5:
             print('Maximum number of clients reached')
             break
-
-
