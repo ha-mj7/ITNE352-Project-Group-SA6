@@ -4,7 +4,7 @@ import threading
 import socket
 
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
-    ss.bind(("127.0.0.1", 1024))
+    ss.bind(("127.0.0.1", 1025))
     ss.listen(3)
     
     arr_icao = input('Enter the airport code:')
@@ -21,13 +21,12 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
         result = f.write(json_data)
 
     def Thread(sock_a, id):
+        Cname = sock_a.recv(1024).decode('ascii')
+        print('Client\'s name: {}'.format(Cname))
+        choice = sock_a.recv(1024).decode('ascii')
         try:
             while True:
-                Cname = sock_a.recv(1024).decode('ascii')
-                print('Client\'s name: {}'.format(Cname))
-                choice = sock_a.recv(1024).decode('ascii')
                 keys = fdata['data']
-
 
                 if choice.lower() in ['a','1']:
                     response_a = 'No arrived flights found\n'
