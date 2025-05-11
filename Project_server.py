@@ -1,7 +1,6 @@
 import requests
 import json
 import threading
-import time
 import socket
 
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
@@ -72,32 +71,32 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     print('All delayed flights:')
                     sock_a.send(response_b.encode('ascii'))
 
-                elif choice.lower() in ['d', '3']:
+                elif choice.lower() in ['c', '3']:
                     ask = 'Please enter the flight number >>>'
                     sock_a.sendall(ask.encode('ascii'))
                     fli_num = sock_a.recv(1024).decode('ascii')
                     response_d = 'Sorry, no data found for this Flight number :('
-                    for d in fdata['data']:
-                        if d ['flight'].get('number') == fli_num:
+                    for c in fdata['data']:
+                        if c ['flight'].get('number') == fli_num:
                             response_d = (
                                 "---------------------------------------------------------\n"
-                                f"Fli_iata: {d['flight'].get('iata', 'N/A')}\n"
-                                f"Dep_airport: {d['departure'].get('airport', 'N/A')}\n"
-                                f"Dep_gate: {d['departure'].get('gate', 'N/A')}\n"
-                                f"Dep_terminal: {d['departure'].get('terminal', 'N/A')}\n"
-                                f"Arr_airport: {d['arrival'].get('airport', 'N/A')}\n"
-                                f"Arr_gate: {d['arrival'].get('gate', 'N/A')}\n"
-                                f"Arr_terminal: {d['arrival'].get('terminal', 'N/A')}\n"
-                                f"Fli_status: {d.get('flight_status', 'N/A')}\n"
-                                f"Dep_scheduled: {d['departure'].get('scheduled', 'N/A')}\n"
-                                f"Arr_scheduled: {d['arrival'].get('scheduled', 'N/A')}\n"
+                                f"Fli_iata: {c['flight'].get('iata', 'N/A')}\n"
+                                f"Dep_airport: {c['departure'].get('airport', 'N/A')}\n"
+                                f"Dep_gate: {c['departure'].get('gate', 'N/A')}\n"
+                                f"Dep_terminal: {c['departure'].get('terminal', 'N/A')}\n"
+                                f"Arr_airport: {c['arrival'].get('airport', 'N/A')}\n"
+                                f"Arr_gate: {c['arrival'].get('gate', 'N/A')}\n"
+                                f"Arr_terminal: {c['arrival'].get('terminal', 'N/A')}\n"
+                                f"Fli_status: {c.get('flight_status', 'N/A')}\n"
+                                f"Dep_scheduled: {c['departure'].get('scheduled', 'N/A')}\n"
+                                f"Arr_scheduled: {c['arrival'].get('scheduled', 'N/A')}\n"
                                 "----------------------------------------------------------\n"
                             )
                             break
                     print('Details of a particular flight')
                     sock_a.send(response_d.encode('ascii'))
                 
-                elif choice.lower() in ['quit', '4']:
+                elif choice.lower() in ['d','quit', '4']:
                         print('Disconnecting Client: ', Cname)
                         sock_a.send('Closing connection'.encode('ascii'))
                         sock_a.close()  
@@ -111,7 +110,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
             sock_a.close()
 
 
-     
+
     my_threads=[]
 
     while True:
