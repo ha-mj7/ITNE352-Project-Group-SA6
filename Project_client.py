@@ -1,6 +1,6 @@
 import socket
 
-address = ("127.0.0.1", 1700)
+address = ("127.0.0.1", 1024)
 Cname = input('Enter your name: ')
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as cs:
     cs.connect(address)
