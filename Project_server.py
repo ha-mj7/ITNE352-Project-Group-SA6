@@ -70,6 +70,12 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                             )
                 print('All delayed flights:')
                 sock_a.send(response_b.encode('ascii'))
+            
+            elif choice.lower() in ['quit', '4']:
+                    print('Disconnecting Client:', Cname)
+                    sock_a.send('Closing connection'.encode('ascii'))
+                    sock_a.close()  
+                    break 
 
 
     
