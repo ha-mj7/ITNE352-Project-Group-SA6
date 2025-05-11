@@ -27,4 +27,3 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as cs:
         if choice.lower() in ['d', '4', 'quit']:
             break
 
-
