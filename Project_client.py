@@ -23,14 +23,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
         print("c. Search for a particular flight")
         print("d. Quit connection")
 
-        choice = input("Choose the option you need: ").strip()
+        choice = input("Choose one of the options above: ").strip()
         if not choice:
             continue
 
         cs.send(choice.encode('ascii'))
 
         if choice in ['d', '4', 'quit']:
-            print("Disconnecting from server")
+            print("++++++Disconnecting from server++++++")
             break
 
         if choice in ['c','3']:

@@ -51,9 +51,12 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
     
                 #delayed flights
                 elif choice.lower() in ['b','2']:
+                    response_b = 'No delayed flights found\n'
                     for b in keys:
                         if b['arrival']['delay'] is not None:
                             if b['flight']['codeshared'] is not None:
+                                if response_b == 'No delayed flights found\n':
+                                    response_b = ''
                                 response_b += (
                                     "-----------------------------------------\n"
                                     f"Flight IATA code: {b['flight']['iata']}\n"
@@ -65,16 +68,17 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                     f"Arrival gate: {b['arrival']['gate']}\n"
                                     "-----------------------------------------\n"
                                 )
-                            else:
-                                response_b = 'No delayed flights found\n'
                     print('All delayed flights requested by {}'.format(Cname))
                     sock_a.sendall(response_b.encode('ascii'))
 
                 elif choice.lower() in ['c', '3']:
                     sock_a.send('Please enter the flight number:'.encode('ascii'))
+                    response_c = 'No flights with this number found\n'
                     fli_num = sock_a.recv(1024).decode('ascii')
                     for c in fdata['data']:
                         if c ['flight']['number'] == fli_num:
+                            if response_c == 'No flights with this number found\n':
+                                    response_c = ''
                             response_c = (
                                 "---------------------------------------------------------\n"
                                 f"Flight IATA code: {c['flight']['iata']}\n"
