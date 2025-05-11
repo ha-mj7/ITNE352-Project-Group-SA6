@@ -58,13 +58,13 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                     response_b = ''
                                 response_b += (
                                     "-----------------------------------------\n"
-                                    f"Fli-Iata: {b['flight']['iata']}\n"
-                                    f"Dep-airport: {b['departure']['airport']}\n"
-                                    f"Dep-scheduled: {b['departure']['scheduled']}\n"
-                                    f"Arr-estimated: {b['arrival']['estimated']}\n"
-                                    f"Arr-terminal: {b['arrival']['terminal']}\n"
-                                    f"Arr_delay: {b['arrival']['delay']}\n"
-                                    f"Arr-gate: {b['arrival']['gate']}\n"
+                                    f"Flight IATA code: {b['flight']['iata']}\n"
+                                    f"Departure airport: {b['departure']['airport']}\n"
+                                    f"Departure scheduled: {b['departure']['scheduled']}\n"
+                                    f"Arrival estimated: {b['arrival']['estimated']}\n"
+                                    f"Arrival terminal: {b['arrival']['terminal']}\n"
+                                    f"Arrival delay: {b['arrival']['delay']}\n"
+                                    f"Arrival gate: {b['arrival']['gate']}\n"
                                     "-----------------------------------------\n"
                                 )
                     print('All delayed flights:')
@@ -79,16 +79,16 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                         if c ['flight'].get('number') == fli_num:
                             response_d = (
                                 "---------------------------------------------------------\n"
-                                f"Fli_iata: {c['flight'].get('iata', 'N/A')}\n"
-                                f"Dep_airport: {c['departure'].get('airport', 'N/A')}\n"
-                                f"Dep_gate: {c['departure'].get('gate', 'N/A')}\n"
-                                f"Dep_terminal: {c['departure'].get('terminal', 'N/A')}\n"
-                                f"Arr_airport: {c['arrival'].get('airport', 'N/A')}\n"
-                                f"Arr_gate: {c['arrival'].get('gate', 'N/A')}\n"
-                                f"Arr_terminal: {c['arrival'].get('terminal', 'N/A')}\n"
-                                f"Fli_status: {c.get('flight_status', 'N/A')}\n"
-                                f"Dep_scheduled: {c['departure'].get('scheduled', 'N/A')}\n"
-                                f"Arr_scheduled: {c['arrival'].get('scheduled', 'N/A')}\n"
+                                f"Flight IATA code: {c['flight'].get('iata', 'N/A')}\n"
+                                f"Departure airport: {c['departure'].get('airport', 'N/A')}\n"
+                                f"Departure gate: {c['departure'].get('gate', 'N/A')}\n"
+                                f"Departure terminal: {c['departure'].get('terminal', 'N/A')}\n"
+                                f"Arrival airport: {c['arrival'].get('airport', 'N/A')}\n"
+                                f"Arrival gate: {c['arrival'].get('gate', 'N/A')}\n"
+                                f"Arrival terminal: {c['arrival'].get('terminal', 'N/A')}\n"
+                                f"Arrival status: {c.get('flight_status', 'N/A')}\n"
+                                f"Arrival scheduled: {c['departure'].get('scheduled', 'N/A')}\n"
+                                f"Arrival scheduled: {c['arrival'].get('scheduled', 'N/A')}\n"
                                 "----------------------------------------------------------\n"
                             )
                             break
