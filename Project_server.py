@@ -22,60 +22,68 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
         result = f.write(json_data)
 
     def Thread(sock_a, id):
-        while True:
-            Cname = sock_a.recv(1024).decode('ascii')
-            print('Client\'s name: {}'.format(Cname))
-            choice = sock_a.recv(1024).decode('ascii')
-            keys = fdata['data']
+        try:
+            while True:
+                Cname = sock_a.recv(1024).decode('ascii')
+                print('Client\'s name: {}'.format(Cname))
+                choice = sock_a.recv(1024).decode('ascii')
+                keys = fdata['data']
 
 
-            if choice.lower() in ['a','1']:
-                response_a = 'No arrived flights found\n'
-                for a in keys:
-                    if a['arrival']['actual'] is not None:
-                        if response_a == 'No arrived flights found\n':
-                            response_a = ''
-                        response_a += (
-                            "-----------------------------------------\n"
-                            f"Flight IATA code: {a['flight']['iata']}\n"
-                            f"Departure airport: {a['departure']['airport']}\n"
-                            f"Arrival time: {a['arrival']['actual']}\n"
-                            f"Arrival terminal: {a['arrival']['terminal']}\n"
-                            f"Arrival gate: {a['arrival']['gate']}\n"
-                            "-----------------------------------------\n"
-                        )
-                print('All arrived flights:')
-                sock_a.send(response_a.encode('ascii'))
-
-
- 
-            #delayed flights
-            elif choice.lower() in ['b','2']:
-                response_b = 'No delayed flights found\n'
-                for b in keys:
-                    if b['arrival']['delay'] is not None:
-                        if b['flight']['codeshared'] is not None:
-                            if response_b == 'No delayed flights found\n':
-                                response_b = ''
-                            response_b += (
+                if choice.lower() in ['a','1']:
+                    response_a = 'No arrived flights found\n'
+                    for a in keys:
+                        if a['arrival']['actual'] is not None:
+                            if response_a == 'No arrived flights found\n':
+                                response_a = ''
+                            response_a += (
                                 "-----------------------------------------\n"
-                                f"Fli-Iata: {b['flight']['iata']}\n"
-                                f"Dep-airport: {b['departure']['airport']}\n"
-                                f"Dep-scheduled: {b['departure']['scheduled']}\n"
-                                f"Arr-estimated: {b['arrival']['estimated']}\n"
-                                f"Arr-terminal: {b['arrival']['terminal']}\n"
-                                f"Arr_delay: {b['arrival']['delay']}\n"
-                                f"Arr-gate: {b['arrival']['gate']}\n"
+                                f"Flight IATA code: {a['flight']['iata']}\n"
+                                f"Departure airport: {a['departure']['airport']}\n"
+                                f"Arrival time: {a['arrival']['actual']}\n"
+                                f"Arrival terminal: {a['arrival']['terminal']}\n"
+                                f"Arrival gate: {a['arrival']['gate']}\n"
                                 "-----------------------------------------\n"
                             )
-                print('All delayed flights:')
-                sock_a.send(response_b.encode('ascii'))
-            
-            elif choice.lower() in ['quit', '4']:
-                    print('Disconnecting Client: ', Cname)
-                    sock_a.send('Closing connection'.encode('ascii'))
-                    sock_a.close()  
-                    break 
+                    print('All arrived flights:')
+                    sock_a.send(response_a.encode('ascii'))
+
+
+    
+                #delayed flights
+                elif choice.lower() in ['b','2']:
+                    response_b = 'No delayed flights found\n'
+                    for b in keys:
+                        if b['arrival']['delay'] is not None:
+                            if b['flight']['codeshared'] is not None:
+                                if response_b == 'No delayed flights found\n':
+                                    response_b = ''
+                                response_b += (
+                                    "-----------------------------------------\n"
+                                    f"Fli-Iata: {b['flight']['iata']}\n"
+                                    f"Dep-airport: {b['departure']['airport']}\n"
+                                    f"Dep-scheduled: {b['departure']['scheduled']}\n"
+                                    f"Arr-estimated: {b['arrival']['estimated']}\n"
+                                    f"Arr-terminal: {b['arrival']['terminal']}\n"
+                                    f"Arr_delay: {b['arrival']['delay']}\n"
+                                    f"Arr-gate: {b['arrival']['gate']}\n"
+                                    "-----------------------------------------\n"
+                                )
+                    print('All delayed flights:')
+                    sock_a.send(response_b.encode('ascii'))
+                
+                elif choice.lower() in ['quit', '4']:
+                        print('Disconnecting Client: ', Cname)
+                        sock_a.send('Closing connection'.encode('ascii'))
+                        sock_a.close()  
+                        break
+                else:
+                    sock_a.send('Invalid choice'.encode('asciI'))
+        except (ConnectionResetError, BrokenPipeError):
+            print(f"Client {Cname} disconnected unexpectedly.")
+        finally:
+            sock_a.close()
+
 
 
     
