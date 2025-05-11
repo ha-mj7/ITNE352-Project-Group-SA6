@@ -48,6 +48,8 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                 sock_a.send(response_a.encode('ascii'))
 
 
+ 
+            #delayed flights
             elif choice.lower() in ['b','2']:
                 response_b = 'No delayed flights found\n'
                 for b in keys:
@@ -57,22 +59,45 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                 response_b = ''
                             response_b += (
                                 "-----------------------------------------\n"
-                                f"Dep-Iata: {b['departure']['iata']}\n"
+                                f"Fli-Iata: {b['flight']['iata']}\n"
                                 f"Dep-airport: {b['departure']['airport']}\n"
                                 f"Dep-scheduled: {b['departure']['scheduled']}\n"
-                                f"Fli-number: {b['flight']['number']}\n"
-                                f"Arr-scheduled: {b['arrival']['scheduled']}\n"
                                 f"Arr-estimated: {b['arrival']['estimated']}\n"
                                 f"Arr-terminal: {b['arrival']['terminal']}\n"
+                                f"Arr_delay: {b['arrival']['delay']}\n"
                                 f"Arr-gate: {b['arrival']['gate']}\n"
                                 "-----------------------------------------\n"
                             )
                 print('All delayed flights:')
                 sock_a.send(response_b.encode('ascii'))
 
+            #Details of a particular flight
+            elif choice.lower() in ['d','3']:
+                ask='pleas Enter the flight number >>>'
+                sock_a.sendall(ask.encode('ascii'))
+                fli_num =sock_a.recv(1024).decode('ascii')   
+                response_d='Sorry no data found for this Flight number :('
+                for flight in api_data.get('data', []):
+                        if flight['flight'].get('number')==fli_num :
+                            
+                            response_d += (
+                                "---------------------------------------------------------\n"
+                                f"Fli_iata: {flight['flight'].get('iata', 'N/A')}\n"
+                                f"Dep_airport: {flight['departure'].get('airport', 'N/A')}\n"
+                                f"Dep_gate: {flight['departure'].get('gate', 'N/A')}\n"
+                                f"Dep_terminal: {flight['departure'].get('terminal', 'N/A')}\n"
+                                f"Arr_airport: {flight['arrival'].get('airport', 'N/A')}\n"
+                                f"Arr_gate: {flight['arrival'].get('gate', 'N/A')}\n"
+                                f"Arr_terminal: {flight['arrival'].get('terminal', 'N/A')}\n"
+                                f"Fli_status: {flight.get('flight_status', 'N/A')}\n"
+                                f"Dep_scheduled: {flight['departure'].get('scheduled', 'N/A')}\n"
+                                f"Arr_scheduled: {flight['arrival'].get('scheduled', 'N/A')}\n"
+                                "----------------------------------------------------------\n"
+                            )
+                print('Details of a particular flight')  
+                sock_a.send(response_b.encode('ascii'))  
 
     
-                
             
          
     my_threads=[]
