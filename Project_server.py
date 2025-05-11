@@ -103,7 +103,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                         sock_a.close()  
                         break
                 else:
-                    sock_a.send('Invalid choice'.encode('asciI'))
+                    sock_a.send('Invalid choice'.encode('ascii'))
 
         except (ConnectionResetError, BrokenPipeError):
             print(f"Client {Cname} disconnected unexpectedly.")
