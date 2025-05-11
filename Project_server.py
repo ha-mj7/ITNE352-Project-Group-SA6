@@ -23,10 +23,11 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
     def Thread(sock_a, id):
         Cname = sock_a.recv(1024).decode('ascii')
         print('Client\'s name: {}'.format(Cname))
-        choice = sock_a.recv(1024).decode('ascii')
+        
         try:
             while True:
                 keys = fdata['data']
+                choice = sock_a.recv(1024).decode('ascii')
 
                 if choice.lower() in ['a','1']:
                     response_a = 'No arrived flights found\n'
@@ -43,60 +44,57 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                 f"Arrival gate: {a['arrival']['gate']}\n"
                                 "-----------------------------------------\n"
                             )
-                    print('All arrived flights:')
-                    sock_a.send(response_a.encode('ascii'))
+                    print('All arrived flights requested by {}'.format(Cname))
+                    sock_a.sendall(response_a.encode('ascii'))
 
 
     
                 #delayed flights
                 elif choice.lower() in ['b','2']:
-                    response_b = 'No delayed flights found\n'
                     for b in keys:
                         if b['arrival']['delay'] is not None:
                             if b['flight']['codeshared'] is not None:
-                                if response_b == 'No delayed flights found\n':
-                                    response_b = ''
                                 response_b += (
                                     "-----------------------------------------\n"
-                                    f"Fli-Iata: {b['flight']['iata']}\n"
-                                    f"Dep-airport: {b['departure']['airport']}\n"
-                                    f"Dep-scheduled: {b['departure']['scheduled']}\n"
-                                    f"Arr-estimated: {b['arrival']['estimated']}\n"
-                                    f"Arr-terminal: {b['arrival']['terminal']}\n"
-                                    f"Arr_delay: {b['arrival']['delay']}\n"
-                                    f"Arr-gate: {b['arrival']['gate']}\n"
+                                    f"Flight IATA code: {b['flight']['iata']}\n"
+                                    f"Departure airport: {b['departure']['airport']}\n"
+                                    f"Departure scheduled: {b['departure']['scheduled']}\n"
+                                    f"Arrival estimated: {b['arrival']['estimated']}\n"
+                                    f"Arrival terminal: {b['arrival']['terminal']}\n"
+                                    f"Arrival delay: {b['arrival']['delay']}\n"
+                                    f"Arrival gate: {b['arrival']['gate']}\n"
                                     "-----------------------------------------\n"
                                 )
-                    print('All delayed flights:')
-                    sock_a.send(response_b.encode('ascii'))
+                            else:
+                                response_b = 'No delayed flights found\n'
+                    print('All delayed flights requested by {}'.format(Cname))
+                    sock_a.sendall(response_b.encode('ascii'))
 
                 elif choice.lower() in ['c', '3']:
-                    ask = 'Please enter the flight number >>>'
-                    sock_a.sendall(ask.encode('ascii'))
+                    sock_a.send('Please enter the flight number:'.encode('ascii'))
                     fli_num = sock_a.recv(1024).decode('ascii')
-                    response_d = 'Sorry, no data found for this Flight number :('
                     for c in fdata['data']:
-                        if c ['flight'].get('number') == fli_num:
-                            response_d = (
+                        if c ['flight']['number'] == fli_num:
+                            response_c = (
                                 "---------------------------------------------------------\n"
-                                f"Fli_iata: {c['flight'].get('iata', 'N/A')}\n"
-                                f"Dep_airport: {c['departure'].get('airport', 'N/A')}\n"
-                                f"Dep_gate: {c['departure'].get('gate', 'N/A')}\n"
-                                f"Dep_terminal: {c['departure'].get('terminal', 'N/A')}\n"
-                                f"Arr_airport: {c['arrival'].get('airport', 'N/A')}\n"
-                                f"Arr_gate: {c['arrival'].get('gate', 'N/A')}\n"
-                                f"Arr_terminal: {c['arrival'].get('terminal', 'N/A')}\n"
-                                f"Fli_status: {c.get('flight_status', 'N/A')}\n"
-                                f"Dep_scheduled: {c['departure'].get('scheduled', 'N/A')}\n"
-                                f"Arr_scheduled: {c['arrival'].get('scheduled', 'N/A')}\n"
+                                f"Flight IATA code: {c['flight']['iata']}\n"
+                                f"Departure airport: {c['departure']['airport']}\n"
+                                f"Departure gate: {c['departure']['gate']}\n"
+                                f"Departure terminal: {c['departure']['terminal']}\n"
+                                f"Arrival airport: {c['arrival']['airport']}\n"
+                                f"Arrival gate: {c['arrival']['gate']}\n"
+                                f"Arrival terminal: {c['arrival']['terminal']}\n"
+                                f"Arrival status: {c['flight_status']}\n"
+                                f"departure scheduled: {c['departure']['scheduled']}\n"
+                                f"Arrival scheduled: {c['arrival']['scheduled']}\n"
                                 "----------------------------------------------------------\n"
                             )
                             break
-                    print('Details of a particular flight')
-                    sock_a.send(response_d.encode('ascii'))
+                    print('Details of a particular flight requested by {}'.format(Cname))
+                    sock_a.sendall(response_c.encode('ascii'))
                 
                 elif choice.lower() in ['d','quit', '4']:
-                        print('Disconnecting Client: ', Cname)
+                        print('Disconnecting Client: {}'.format(Cname))
                         sock_a.send('Closing connection'.encode('ascii'))
                         sock_a.close()  
                         break
@@ -104,7 +102,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     sock_a.send('Invalid choice'.encode('ascii'))
 
         except (ConnectionResetError, BrokenPipeError):
-            print("Client {} disconnected unexpectedly.".format(Cname))
+            print("Client {} disconnected.".format(Cname))
         finally:
             sock_a.close()
 
