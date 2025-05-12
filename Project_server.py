@@ -7,7 +7,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
     ss.bind(("127.0.0.1", 1025))
     ss.listen(3)
     
-    arr_icao = input('Enter the airport code:')
+    arr_icao = input('Enter the airport code: ')
     params = {
     'arr_icao': arr_icao,
     'limit': 100,
@@ -72,12 +72,12 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     sock_a.sendall(response_b.encode('ascii'))
 
                 elif choice.lower() in ['c', '3']:
-                    sock_a.send('Please enter the flight number:'.encode('ascii'))
+                    sock_a.send('Please enter the flight number: '.encode('ascii'))
                     response_c = 'No flights with this number found\n'
                     fli_num = sock_a.recv(1024).decode('ascii')
                     for c in fdata['data']:
                         if c ['flight']['number'] == fli_num:
-                            if response_c == 'No flights with this number found\n':
+                            if response_c == '>>>>>>>>>>>>>>>No flights with this number found<<<<<<<<<<<<<<<<\n':
                                     response_c = ''
                             response_c = (
                                 "---------------------------------------------------------\n"
@@ -103,7 +103,12 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                         sock_a.close()  
                         break
                 else:
-                    sock_a.send('Invalid choice'.encode('ascii'))
+                    Invalid = (
+                        "---------------------------------------------------------\n"
+                        f">>>>>>>>>>>>>>>Invalid choice, try again<<<<<<<<<<<<<<<<\n"
+                        "---------------------------------------------------------\n"
+                    )
+                    sock_a.send(Invalid.encode('ascii'))
 
         except (ConnectionResetError, BrokenPipeError):
             print("Client {} disconnected.".format(Cname))

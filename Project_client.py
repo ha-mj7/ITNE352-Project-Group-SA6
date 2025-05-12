@@ -30,7 +30,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
         cs.send(choice.encode('ascii'))
 
         if choice in ['d', '4', 'quit']:
-            print("++++++Disconnecting from server++++++")
+            print("============Disconnecting from server============")
             break
 
         if choice in ['c','3']:
