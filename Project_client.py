@@ -36,8 +36,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
         if choice in ['c','3']:
             reply = recv_all(cs)
             print(reply)
-            fli_num = input().strip()
-            cs.send(fli_num.encode('ascii'))
+            fli_iata = input().upper().strip()
+            cs.send(fli_iata.encode('ascii'))
 
         response = recv_all(cs) 
         print(response)

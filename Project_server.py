@@ -72,11 +72,11 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     sock_a.sendall(response_b.encode('ascii'))
 
                 elif choice.lower() in ['c', '3']:
-                    sock_a.send('Please enter the flight number: '.encode('ascii'))
+                    sock_a.send('Please enter the flight IATA code: '.encode('ascii'))
                     response_c = 'No flights with this number found\n'
                     fli_num = sock_a.recv(1024).decode('ascii')
                     for c in fdata['data']:
-                        if c ['flight']['number'] == fli_num:
+                        if c ['flight']['iata'] == fli_num:
                             if response_c == '>>>>>>>>>>>>>>>No flights with this number found<<<<<<<<<<<<<<<<\n':
                                     response_c = ''
                             response_c = (
