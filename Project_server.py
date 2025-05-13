@@ -2,33 +2,35 @@ import requests
 import json
 import threading
 import socket
-
+# creating a socket server
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
     ss.bind(("127.0.0.1", 1025))
     ss.listen(3)
-    
+    #asking the user for the airport code
     arr_icao = input('Enter the airport code: ')
+    #the api requests parameters
     params = {
     'arr_icao': arr_icao,
     'limit': 100,
     'access_key': '0e69ff7b13e782fd5508e69d9fd8eb2c'}
-
+    #the api request
     api_data = requests.get('https://api.aviationstack.com/v1/flights', params)
     json_data = json.dumps(api_data.json(), indent= 2)
     fdata = api_data.json()
-
+    #saving the data to the specified json file
     with open('SA6.json' , 'w') as f:
         result = f.write(json_data)
-
+    #the thread function where the server recieves input from the client
     def Thread(sock_a, id):
         Cname = sock_a.recv(1024).decode('ascii')
         print('Client\'s name: {}'.format(Cname))
         
         try:
             while True:
+                #making the json data searchable
                 keys = fdata['data']
                 choice = sock_a.recv(1024).decode('ascii')
-
+                #if the user requests all arrived flights
                 if choice.lower() in ['a','1']:
                     response_a = 'No arrived flights found\n'
                     for a in keys:
@@ -49,7 +51,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
 
 
     
-                #delayed flights
+                #if the user requests all delayed flights
                 elif choice.lower() in ['b','2']:
                     response_b = 'No delayed flights found\n'
                     for b in keys:
@@ -70,7 +72,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                 )
                     print('All delayed flights requested by {}'.format(Cname))
                     sock_a.sendall(response_b.encode('ascii'))
-
+                #if the user requests a particular flight using the flight IATA code
                 elif choice.lower() in ['c', '3']:
                     sock_a.send('Please enter the flight IATA code: '.encode('ascii'))
                     response_c = 'No flights with this number found\n'
@@ -93,15 +95,17 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                 f"Arrival scheduled: {c['arrival']['scheduled']}\n"
                                 "----------------------------------------------------------\n"
                             )
+                            #using the break statement to stop the loop since the flight has been found
                             break
                     print('Details of a particular flight requested by {}'.format(Cname))
                     sock_a.sendall(response_c.encode('ascii'))
-                
+                #if the user wants to disconnect from the server
                 elif choice.lower() in ['d','quit', '4']:
                         print('Disconnecting Client: {}'.format(Cname))
                         sock_a.send('Closing connection'.encode('ascii'))
                         sock_a.close()  
                         break
+                #if the user enters an invalid choice
                 else:
                     Invalid = (
                         "---------------------------------------------------------\n"
@@ -109,16 +113,16 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                         "---------------------------------------------------------\n"
                     )
                     sock_a.send(Invalid.encode('ascii'))
-
+        #if the client disconnects from the server not using the quit option
         except (ConnectionResetError, BrokenPipeError):
             print("Client {} disconnected.".format(Cname))
         finally:
             sock_a.close()
 
 
-
+    #creating a list to store the threads
     my_threads=[]
-
+    #creating a loop for threads so it can accept up to 5 clients
     while True:
         sock_a,sockname= ss.accept()
         t = threading.Thread(target= Thread,args=(sock_a,len(my_threads)+1))
