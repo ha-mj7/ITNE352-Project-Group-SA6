@@ -6,17 +6,17 @@ This project is a multithreaded client-server system in Python that lets you acc
 #  ⚠️ Group Information 
  Semester:S2 2024-2025 
 
- group name:SA6
+ Group Name:SA6
 
-course: ITNE352
+Course: ITNE352
 
- section:01
+ Section:01
 
- name:Sayed Mustafa Ali               
-    student ID:202207690
+ Name:Sayed Mustafa Ali               
+    Student ID:202207690
 
- name:               
-     student ID:
+ Name:Hussain Ali Merza               
+     Student ID:202207930
 
 # Table of Contents
 
