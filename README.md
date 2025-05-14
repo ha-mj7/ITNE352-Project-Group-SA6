@@ -3,7 +3,7 @@
 
 This project is a multithreaded client-server system in Python that lets you access the arrival information of flights at the selected     airport. The server is capable of retrieving flight data using an ICAO code with the aviationstack API and storing data on a local file. Furthermore it can handle multiple clients at the same time with the help of threads in Java. Clients can connect to the server and request a list of either arrived or delayed flights or search for a specific one. The system illustrates several important aspects of network program development, such as socket communication, multithreading, API integration, and program structuring. 
 
-#  ⚠️ Group Information 
+#  👥 Group Information 
  Semester:S2 2024-2025 
 
  Group Name:SA6
@@ -18,7 +18,7 @@ Course: ITNE352
  Name:Hussain Ali Merza               
      Student ID:202207930
 
-# Table of Contents
+# 📍 Table of Contents
 
 [Description](#description)
 
@@ -37,7 +37,7 @@ Course: ITNE352
 [Acknowledgments](#acknowledgments)
 
 [Conclusion](#conclusion)
-# Requirements
+# ⚙️ Requirements
 
 - Python 3
 - requests
@@ -45,6 +45,7 @@ Course: ITNE352
 - threading
 - socket
 - ssl
+- visual studio code
 - aviationstack API key (for flight data retrieval)
 - A valid ICAO airport code
 - server certificate and key files (server.crt and server.key) for SSL encryption      
@@ -83,9 +84,9 @@ Course: ITNE352
  
 you can usr  ```Ctrl + C``` in the terminal where the server is running and it will close.
 
-# scripts
+# 💻📋 scripts
 
-**1- server** 
+**1-🚪 server** 
 
  1.1-Main Functionality:
 
@@ -135,7 +136,7 @@ import ssl
         ss.listen(3)
   
 ```
-2 – Client
+2 – 🧑‍💻 Client
 
  2.1-Main Functionality:
 - Connects to the secure server.
@@ -193,7 +194,7 @@ import ssl
        
         choice = input("Choose one of the options above: ").strip()
 ```
-# Additional concept: SSL implemntation
+# 🔐 Additional concept: SSL implemntation
 Using OpenSSL software we generated both the private key and the certificate
 
 - server SSL implementation:  
@@ -226,15 +227,15 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
     #wrapping the socket with ssl
     ssl_sock = ssl_cont.wrap_socket(cs, server_hostname=address[0])
 ```
-**Wireshark screenshot capture provided**
+**🦈 Wireshark screenshot capture provided**
 
-# Acknowledgments
+# 🙏 Acknowledgments
 
 - Thanks to the Python community for their extensive libraries and documentation.
 - Thanks to the instructor (Dr. Mohamed Abdulaziz Al-Meer) for support and feedback
 - Thanks peers for their collaboration and insights.
 
-# Conclusion
+# 📝 Conclusion
 This project show us how Python can be used with immense capability to create a multithreaded client-server system. Communication is secured with SSL encryption, and the system is integrated AviationStack API for real-time flight data. The system’s user interface and overall navigation within the system is designed to be user-friendly and efficient, thus valuable to users seeking swift access to flight information.
 
 # Resources
