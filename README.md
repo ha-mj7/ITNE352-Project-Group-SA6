@@ -197,7 +197,7 @@ import ssl
        
         choice = input("Choose one of the options above: ").strip()
 ```
-**more than 3 client connect in thesame time**
+**more than 3 client connect at the same time**
 ![Client Connection](clients.png)
 # 🔐 Additional concept: SSL implemntation
 Using OpenSSL software we generated both the private key and the certificate
