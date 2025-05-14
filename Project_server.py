@@ -141,7 +141,3 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
         except ssl.SSLError as error:
             print(f"SSL error: {error}")
             sock_a.close()
-
-        if len(my_threads)> 5:
-            print('Maximum number of clients reached')
-            break
