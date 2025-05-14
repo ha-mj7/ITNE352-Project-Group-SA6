@@ -194,6 +194,8 @@ import ssl
        
         choice = input("Choose one of the options above: ").strip()
 ```
+**more than 3 client connect in thesame time**
+![Client Connection](clients.png)
 # 🔐 Additional concept: SSL implemntation
 Using OpenSSL software we generated both the private key and the certificate
 
@@ -229,6 +231,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
 ```
 **🦈 Wireshark screenshot capture provided**
 
+![Wireshark Screenshot](SSL%20proof.png)
+
 # 🙏 Acknowledgments
 
 - Thanks to the Python community for their extensive libraries and documentation.
@@ -238,4 +242,3 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
 # 📝 Conclusion
 This project show us how Python can be used with immense capability to create a multithreaded client-server system. Communication is secured with SSL encryption, and the system is integrated AviationStack API for real-time flight data. The system’s user interface and overall navigation within the system is designed to be user-friendly and efficient, thus valuable to users seeking swift access to flight information.
 
-# Resources
