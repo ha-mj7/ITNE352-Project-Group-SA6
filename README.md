@@ -4,19 +4,22 @@
 This project is a multithreaded client-server system in Python that lets you access the arrival information of flights at the selected     airport. The server is capable of retrieving flight data using an ICAO code with the aviationstack API and storing data on a local file. Furthermore it can handle multiple clients at the same time with the help of threads in Java. Clients can connect to the server and request a list of either arrived or delayed flights or search for a specific one. The system illustrates several important aspects of network program development, such as socket communication, multithreading, API integration, and program structuring. 
 
 #  👥 Group Information 
- Semester:S2 2024-2025 
+ ```Second Semester 2024/2025```
 
- Group Name:SA6
+ ```Group Name:SA6```
 
-Course: ITNE352
+```Course: ITNE352```
 
- Section:01
+ ```Section:01```
+        
+   ```Name:Sayed Mustafa Ali```               
+   ```Student ID:202207690```
 
- Name:Sayed Mustafa Ali               
-    Student ID:202207690
+   ```Name:Hussain Ali Merza ```                 
+   ```Student ID:202207930```
+           
+ ```Instructor: Dr. Mohamed Abdulaziz Al-Meer```
 
- Name:Hussain Ali Merza               
-     Student ID:202207930
 
 # 📍 Table of Contents
 
@@ -124,7 +127,7 @@ import ssl
     finally:
         sock_a.close()
 ```
-- SSL context and 
+- SSL context
 ```python
         ssl_cont = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         ssl_cont.load_cert_chain(certfile='cert.pem', keyfile='key.pem')
