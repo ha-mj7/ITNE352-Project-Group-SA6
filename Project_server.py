@@ -2,6 +2,12 @@ import requests
 import json
 import threading
 import socket
+import ssl
+
+#creating the ssl context
+ssl_cont = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_cont.load_cert_chain(certfile='cert.pem', keyfile='key.pem')
+
 # creating a socket server
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
     ss.bind(("127.0.0.1", 1025))
@@ -125,10 +131,17 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
     #creating a loop for threads so it can accept up to 5 clients
     while True:
         sock_a,sockname= ss.accept()
-        t = threading.Thread(target= Thread,args=(sock_a,len(my_threads)+1))
-        print('New thread has been created for {}'.format(sockname[0]))
-        my_threads.append(t)
-        t.start()
+        try:
+            #wrapping the client socket with SSL
+            ssl_conn = ssl_cont.wrap_socket(sock_a, server_side=True)
+            t = threading.Thread(target= Thread,args=(ssl_conn,len(my_threads)+1))
+            print('New thread has been created for {}'.format(sockname[0]))
+            my_threads.append(t)
+            t.start()
+        except ssl.SSLError as error:
+            print(f"SSL error: {error}")
+            sock_a.close()
+
         if len(my_threads)> 5:
             print('Maximum number of clients reached')
             break
