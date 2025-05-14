@@ -238,8 +238,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
 
 # 🙏 Acknowledgments
 
-- Thanks to the Python community for their extensive libraries and documentation.
-- Thanks to the instructor (Dr. Mohamed Abdulaziz Al-Meer) for support and feedback
+- Thanks to the instructor ```Dr. Mohamed Abdulaziz Al-Meer``` for support and guidance throughout the project.
 - Thanks peers for their collaboration and insights.
 
 # 📝 Conclusion
