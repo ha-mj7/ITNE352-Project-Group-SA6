@@ -18,7 +18,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
     params = {
     'arr_icao': arr_icao,
     'limit': 100,
-    'access_key': '0e69ff7b13e782fd5508e69d9fd8eb2c'}
+    'access_key': '639c95db4cd1525c7d6a83f5feb4803d'}
     #the api request
     api_data = requests.get('https://api.aviationstack.com/v1/flights', params)
     json_data = json.dumps(api_data.json(), indent= 2)
