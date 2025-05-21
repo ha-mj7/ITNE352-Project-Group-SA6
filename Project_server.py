@@ -85,7 +85,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     fli_iata = sock_a.recv(1024).decode('ascii')
                     for c in fdata['data']:
                         if c ['flight']['iata'] == fli_iata:
-                            if response_c == '>>>>>>>>>>>>>>>No flights with this number found<<<<<<<<<<<<<<<<\n':
+                            if response_c == 'No flights with this number found\n':
                                     response_c = ''
                             response_c = (
                                 "---------------------------------------------------------\n"
