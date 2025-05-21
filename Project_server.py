@@ -42,7 +42,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     for a in keys:
                         if a['arrival']['actual'] is not None:
                             if response_a == 'No arrived flights found\n':
-                                response_a = ''
+                                response_a = '=======================All arrived flights=========================\n'
                             response_a += (
                                 "-----------------------------------------\n"
                                 f"Flight IATA code: {a['flight']['iata']}\n"
@@ -64,7 +64,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                         if b['arrival']['delay'] is not None:
                             if b['flight']['codeshared'] is not None:
                                 if response_b == 'No delayed flights found\n':
-                                    response_b = ''
+                                    response_b = '=======================All delayed flights=========================\n'
                                 response_b += (
                                     "-----------------------------------------\n"
                                     f"Flight IATA code: {b['flight']['iata']}\n"
@@ -86,7 +86,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     for c in keys:
                         if c ['flight']['iata'] == fli_iata:
                             if response_c == 'No flights with this number found\n':
-                                    response_c = ''
+                                    response_c = '=======================Flight information for IATA code:{}=========================\n'.format(fli_iata)
                             response_c = (
                                 "---------------------------------------------------------\n"
                                 f"Flight IATA code: {c['flight']['iata']}\n"
