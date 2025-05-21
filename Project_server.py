@@ -83,7 +83,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     sock_a.send('Please enter the flight IATA code: '.encode('ascii'))
                     response_c = 'No flights with this number found\n'
                     fli_iata = sock_a.recv(1024).decode('ascii')
-                    for c in fdata['data']:
+                    for c in keys:
                         if c ['flight']['iata'] == fli_iata:
                             if response_c == 'No flights with this number found\n':
                                     response_c = ''
