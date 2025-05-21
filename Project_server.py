@@ -86,8 +86,8 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                     for c in keys:
                         if c ['flight']['iata'] == fli_iata:
                             if response_c == 'No flights with this number found\n':
-                                    response_c = '=======================Flight information for IATA code:{}=========================\n'.format(fli_iata)
-                            response_c = (
+                                response_c = '=======================Flight information for IATA code:{}=========================\n'.format(fli_iata)
+                            response_c += (
                                 "---------------------------------------------------------\n"
                                 f"Flight IATA code: {c['flight']['iata']}\n"
                                 f"Departure airport: {c['departure']['airport']}\n"
