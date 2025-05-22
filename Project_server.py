@@ -53,7 +53,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                 "-----------------------------------------\n"
                             )
                     print('All arrived flights requested by {}'.format(Cname))
-                    sock_a.sendall(response_a.encode('ascii'))
+                    sock_a.sendall(response_a.encode('utf-8'))
 
 
     
@@ -77,7 +77,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                     "-----------------------------------------\n"
                                 )
                     print('All delayed flights requested by {}'.format(Cname))
-                    sock_a.sendall(response_b.encode('ascii'))
+                    sock_a.sendall(response_b.encode('utf-8'))
                 #if the user requests a particular flight using the flight IATA code
                 elif choice.lower() in ['c', '3']:
                     sock_a.send('Please enter the flight IATA code: '.encode('ascii'))
@@ -104,7 +104,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                             #using the break statement to stop the loop since the flight has been found
                             break
                     print('Details of a particular flight requested by {}'.format(Cname))
-                    sock_a.sendall(response_c.encode('ascii'))
+                    sock_a.sendall(response_c.encode('utf-8'))
                 #if the user wants to disconnect from the server
                 elif choice.lower() in ['d','quit', '4']:
                         print('Disconnecting Client: {}'.format(Cname))

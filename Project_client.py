@@ -9,7 +9,7 @@ def recv_all(sock, buffer=4096):
         data += chunck
         if len(chunck) < buffer:
             break
-    return data.decode('ascii')
+    return data.decode('utf-8')
 
 #ssl context creation
 ssl_cont = ssl.create_default_context()
