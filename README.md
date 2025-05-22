@@ -115,11 +115,11 @@ import ssl
 - Thread Function
 ```python
     def Thread(sock_a, id):
-    Cname = sock_a.recv(1024).decode('ascii')
+    Cname = sock_a.recv(1024).decode('utf-8')
     print('Client\'s name: {}'.format(Cname))
     try:
         while True:
-            choice = sock_a.recv(1024).decode('ascii')
+            choice = sock_a.recv(1024).decode('utf-8')
             # Handle choices: arrived, delayed, search, quit, invalid
             ...
     except (ConnectionResetError, BrokenPipeError):
@@ -167,7 +167,7 @@ import ssl
                 data += chunck
                 if len(chunck) < buffer:
                 break
-        return data.decode('ascii')
+        return data.decode('utf-8')
 ```
 - ssl context creation
 ```python
@@ -184,7 +184,7 @@ import ssl
 
         #wrapping the socket with ssl
         ssl_sock = ssl_cont.wrap_socket(cs, server_hostname=address[0])
-        ssl_sock.sendall(Cname.encode('ascii')) 
+        ssl_sock.sendall(Cname.encode('utf-8')) 
 ```
 - Menu Function and taking user input
 ```python
