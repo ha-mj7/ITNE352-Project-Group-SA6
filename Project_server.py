@@ -68,7 +68,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                     "-----------------------------------------\n"
                                     f"Flight IATA code: {b['flight']['iata']}\n"
                                     f"Departure airport: {b['departure']['airport']}\n"
-                                    f"Departure scheduled: {b['departure']['scheduled']}\n"
+                                    f"Departure time: {b['departure']['actual']}\n"
                                     f"Arrival estimated: {b['arrival']['estimated']}\n"
                                     f"Arrival terminal: {b['arrival']['terminal']}\n"
                                     f"Arrival delay: {b['arrival']['delay']}\n"
