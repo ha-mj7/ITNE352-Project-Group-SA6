@@ -28,14 +28,14 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
         result = f.write(json_data)
     #the thread function where the server recieves input from the client
     def Thread(sock_a, id):
-        Cname = sock_a.recv(1024).decode('ascii')
+        Cname = sock_a.recv(1024).decode('utf-8')
         print('Client\'s name: {}'.format(Cname))
         
         try:
             while True:
                 #making the json data searchable
                 keys = fdata['data']
-                choice = sock_a.recv(1024).decode('ascii')
+                choice = sock_a.recv(1024).decode('utf-8')
                 #if the user requests all arrived flights
                 if choice.lower() in ['a','1']:
                     response_a = 'No arrived flights found\n'
@@ -53,7 +53,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                 "-----------------------------------------\n"
                             )
                     print('All arrived flights requested by {}'.format(Cname))
-                    sock_a.sendall(response_a.encode('ascii'))
+                    sock_a.sendall(response_a.encode('utf-8'))
 
 
     
@@ -76,12 +76,12 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                                     "-----------------------------------------\n"
                                 )
                     print('All delayed flights requested by {}'.format(Cname))
-                    sock_a.sendall(response_b.encode('ascii'))
+                    sock_a.sendall(response_b.encode('utf-8'))
                 #if the user requests a particular flight using the flight IATA code
                 elif choice.lower() in ['c', '3']:
-                    sock_a.send('Please enter the flight IATA code: '.encode('ascii'))
+                    sock_a.send('Please enter the flight IATA code: '.encode('utf-8'))
                     response_c = 'No flights with this number found\n'
-                    fli_iata = sock_a.recv(1024).decode('ascii')
+                    fli_iata = sock_a.recv(1024).decode('utf-8')
                     for c in keys:
                         if c ['flight']['iata'] == fli_iata:
                             if response_c == 'No flights with this number found\n':
@@ -107,7 +107,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                 #if the user wants to disconnect from the server
                 elif choice.lower() in ['d','quit', '4']:
                         print('Disconnecting Client: {}'.format(Cname))
-                        sock_a.send('Closing connection'.encode('ascii'))
+                        sock_a.send('Closing connection'.encode('utf-8'))
                         sock_a.close()  
                         break
                 #if the user enters an invalid choice
@@ -117,7 +117,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ss:
                         f">>>>>>>>>>>>>>>Invalid choice, try again<<<<<<<<<<<<<<<<\n"
                         "---------------------------------------------------------\n"
                     )
-                    sock_a.send(Invalid.encode('ascii'))
+                    sock_a.send(Invalid.encode('utf-8'))
         #if the client disconnects from the server not using the quit option
         except (ConnectionResetError, BrokenPipeError):
             print("Client {} disconnected.".format(Cname))
