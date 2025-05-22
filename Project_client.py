@@ -25,7 +25,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
 
     #wrapping the socket with ssl
     ssl_sock = ssl_cont.wrap_socket(cs, server_hostname=address[0])
-    ssl_sock.sendall(Cname.encode('ascii'))  
+    ssl_sock.sendall(Cname.encode('utf-8'))  
     #showing the user the available options
     while True:
         print("\nOptions:")
@@ -38,7 +38,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
         if not choice:
             continue
         #sending the inut to the server
-        ssl_sock.send(choice.encode('ascii'))
+        ssl_sock.send(choice.encode('utf-8'))
         #if the user wants to quit the connection to the server
         if choice in ['d', '4', 'quit']:
             print("============Disconnecting from server============")
@@ -48,7 +48,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as cs:
             reply = recv_all(ssl_sock)
             print(reply)
             fli_iata = input().upper().strip()
-            ssl_sock.send(fli_iata.encode('ascii'))
+            ssl_sock.send(fli_iata.encode('utf-8'))
         #receiving the server's response
         response = recv_all(ssl_sock) 
         print(response)
